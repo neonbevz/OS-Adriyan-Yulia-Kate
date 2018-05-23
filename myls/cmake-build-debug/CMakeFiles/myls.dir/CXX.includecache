@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS/myls/Files.cpp
+Files.h
+/home/drbutthurt/Documents/OS/myls/Files.h
+
+/home/drbutthurt/Documents/OS/myls/Files.h
+string
+-
+vector
+-
+boost/filesystem.hpp
+-
+iterator
+-
+iostream
+-
+
+/home/drbutthurt/Documents/OS/myls/Helpers.cpp
+Helpers.h
+/home/drbutthurt/Documents/OS/myls/Helpers.h
+
+/home/drbutthurt/Documents/OS/myls/Helpers.h
+vector
+-
+string
+-
+iostream
+-
+algorithm
+-
+
+/home/drbutthurt/Documents/OS/myls/main.cpp
+iostream
+-
+Helpers.h
+/home/drbutthurt/Documents/OS/myls/Helpers.h
+Files.h
+/home/drbutthurt/Documents/OS/myls/Files.h
+
