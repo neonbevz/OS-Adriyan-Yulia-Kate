@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/myls.dir/Helpers.cpp.o"
   "CMakeFiles/myls.dir/Files.cpp.o"
   "CMakeFiles/myls.dir/main.cpp.o"
+  "CMakeFiles/myls.dir/Path.cpp.o"
   "myls.pdb"
   "myls"
 )

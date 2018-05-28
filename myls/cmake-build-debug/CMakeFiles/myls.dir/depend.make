@@ -7,7 +7,12 @@ CMakeFiles/myls.dir/Files.cpp.o: ../Files.h
 CMakeFiles/myls.dir/Helpers.cpp.o: ../Helpers.cpp
 CMakeFiles/myls.dir/Helpers.cpp.o: ../Helpers.h
 
+CMakeFiles/myls.dir/Path.cpp.o: ../Files.h
+CMakeFiles/myls.dir/Path.cpp.o: ../Path.cpp
+CMakeFiles/myls.dir/Path.cpp.o: ../Path.h
+
 CMakeFiles/myls.dir/main.cpp.o: ../Files.h
 CMakeFiles/myls.dir/main.cpp.o: ../Helpers.h
+CMakeFiles/myls.dir/main.cpp.o: ../Path.h
 CMakeFiles/myls.dir/main.cpp.o: ../main.cpp
 

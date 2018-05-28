@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/drbutthurt/Documents/OS/myls/Files.cpp" "/home/drbutthurt/Documents/OS/myls/cmake-build-debug/CMakeFiles/myls.dir/Files.cpp.o"
   "/home/drbutthurt/Documents/OS/myls/Helpers.cpp" "/home/drbutthurt/Documents/OS/myls/cmake-build-debug/CMakeFiles/myls.dir/Helpers.cpp.o"
+  "/home/drbutthurt/Documents/OS/myls/Path.cpp" "/home/drbutthurt/Documents/OS/myls/cmake-build-debug/CMakeFiles/myls.dir/Path.cpp.o"
   "/home/drbutthurt/Documents/OS/myls/main.cpp" "/home/drbutthurt/Documents/OS/myls/cmake-build-debug/CMakeFiles/myls.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

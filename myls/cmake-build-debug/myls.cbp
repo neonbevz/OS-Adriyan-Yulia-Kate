@@ -96,6 +96,12 @@
 		<Unit filename="/home/drbutthurt/Documents/OS/myls/Helpers.h">
 			<Option target="myls"/>
 		</Unit>
+		<Unit filename="/home/drbutthurt/Documents/OS/myls/Path.cpp">
+			<Option target="myls"/>
+		</Unit>
+		<Unit filename="/home/drbutthurt/Documents/OS/myls/Path.h">
+			<Option target="myls"/>
+		</Unit>
 		<Unit filename="/home/drbutthurt/Documents/OS/myls/main.cpp">
 			<Option target="myls"/>
 		</Unit>

@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -E remove -f
+RM = /home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/drbutthurt/Documents/OS/myls/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/drbutthurt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -177,6 +177,33 @@ Helpers.cpp.s:
 	$(MAKE) -f CMakeFiles/myls.dir/build.make CMakeFiles/myls.dir/Helpers.cpp.s
 .PHONY : Helpers.cpp.s
 
+Path.o: Path.cpp.o
+
+.PHONY : Path.o
+
+# target to build an object file
+Path.cpp.o:
+	$(MAKE) -f CMakeFiles/myls.dir/build.make CMakeFiles/myls.dir/Path.cpp.o
+.PHONY : Path.cpp.o
+
+Path.i: Path.cpp.i
+
+.PHONY : Path.i
+
+# target to preprocess a source file
+Path.cpp.i:
+	$(MAKE) -f CMakeFiles/myls.dir/build.make CMakeFiles/myls.dir/Path.cpp.i
+.PHONY : Path.cpp.i
+
+Path.s: Path.cpp.s
+
+.PHONY : Path.s
+
+# target to generate assembly for a file
+Path.cpp.s:
+	$(MAKE) -f CMakeFiles/myls.dir/build.make CMakeFiles/myls.dir/Path.cpp.s
+.PHONY : Path.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -219,6 +246,9 @@ help:
 	@echo "... Helpers.o"
 	@echo "... Helpers.i"
 	@echo "... Helpers.s"
+	@echo "... Path.o"
+	@echo "... Path.i"
+	@echo "... Path.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

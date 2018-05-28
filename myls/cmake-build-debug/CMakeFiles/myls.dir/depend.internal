@@ -7,7 +7,12 @@ CMakeFiles/myls.dir/Files.cpp.o
 CMakeFiles/myls.dir/Helpers.cpp.o
  /home/drbutthurt/Documents/OS/myls/Helpers.cpp
  /home/drbutthurt/Documents/OS/myls/Helpers.h
+CMakeFiles/myls.dir/Path.cpp.o
+ /home/drbutthurt/Documents/OS/myls/Files.h
+ /home/drbutthurt/Documents/OS/myls/Path.cpp
+ /home/drbutthurt/Documents/OS/myls/Path.h
 CMakeFiles/myls.dir/main.cpp.o
  /home/drbutthurt/Documents/OS/myls/Files.h
  /home/drbutthurt/Documents/OS/myls/Helpers.h
+ /home/drbutthurt/Documents/OS/myls/Path.h
  /home/drbutthurt/Documents/OS/myls/main.cpp
