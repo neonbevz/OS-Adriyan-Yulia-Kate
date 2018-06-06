@@ -16,6 +16,7 @@
 #include <vector>
 #include <wordexp.h>
 
+
 extern char **environ;
 
 using namespace std;
@@ -127,17 +128,15 @@ void mexit(string comm, string u_input, int &err, int &exit_err) {
 }
 
 
-bool file_exists(string comm, string u_input) {
-    wordexp_t inp;
-    wordexp(u_input.c_str(), &inp, 0);
-    char **in_parse = inp.we_wordv;
-    if(exists(in_parse[1])) {
+bool file_exists(string comm) {
+    if (auto file = fopen(comm.c_str(), "r")) {
+        fclose(file);
         return true;
-    }
-    return false;
+    } return false;
 }
 
-void fork_exec(string comm, string u_input) {
+
+void fork_exec(string comm, string u_input, int &err) {
 
     wordexp_t inp;
     wordexp(u_input.c_str(), &inp, 0);
@@ -148,12 +147,21 @@ void fork_exec(string comm, string u_input) {
 
     if (pid == -1) {
         cout << "Unable to fork" << endl;
+        err = 1;
         exit(EXIT_FAILURE);
     } else if (pid > 0) {
         int status;
         waitpid(pid, &status, 0);
     } else {
-        execve(comm.c_str(), in_parse, environ);
+        if(file_exists(comm)){
+            execve(comm.c_str(), in_parse, environ);
+        } else {
+            vector<const char *> args{u_input.c_str()};
+            args.push_back(nullptr);
+            execvp(comm.c_str(), const_cast<char *const *>(args.data()));
+        }
+        cout << u_input << ": command not found" << endl;
+        err = 1;
         exit(EXIT_FAILURE);
     }
 }
@@ -201,16 +209,11 @@ int main() {
                 break;
             }
         } else {
-            if (auto file = fopen(comm.c_str(), "r")) {
-                fclose(file);
-                if (file_exists(comm, u_input)) {
-                    fork_exec(comm, u_input);
+
+            if (file_exists(comm)) {
+                    fork_exec(comm, u_input, err);
             } else {
-                    cout << "No such file" << endl;
-                    err = 1;
-                }
-            } else {
-                cout << u_input << ": command not found" << endl;
+                fork_exec(comm, u_input, err);
             }
         }
     }
