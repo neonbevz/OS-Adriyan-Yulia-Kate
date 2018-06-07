@@ -1,8 +1,3 @@
-//TODO: fix mexport
-//	check how std bash commands work (ls, cd...)
-//	make it look different from v's
-
-
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -15,14 +10,12 @@
 #include <cstdlib>
 #include <boost/filesystem.hpp>
 #include <cctype>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <vector>
 #include <wordexp.h>
 #include <map>
-
 
 extern char **environ;
 
@@ -166,7 +159,12 @@ void fork_exec(string comm, string u_input, int &err) {
         if(file_exists(comm)){
             execve(comm.c_str(), in_parse, environ);
         } else {
-            vector<const char *> args{u_input.c_str()};
+            vector<const char *> args;
+            istringstream iss(u_input);
+            string arg;
+            while(getline(iss, arg, ' ')) {
+                args.push_back(arg.c_str());
+            }
             args.push_back(nullptr);
             execvp(comm.c_str(), const_cast<char *const *>(args.data()));
         }
@@ -217,23 +215,28 @@ void add_var(string u_input) {
 
 string read_var(string key) {
 
+    char* env = getenv(key.c_str());
+
     if (globals.find(key) != globals.end()) {
         return globals[key];
+    } else if (env){
+        string value(env);
+        return value;
     } else {
         return "";
     }
 }
 
-string mecho(string u_input) {
+void mecho(string u_input) {
 
     string ech;
+
     if (u_input.find("$") != string::npos) {
         string var = u_input.substr(u_input.find("$") + 1);
         ech = read_var(var);
     } else {
         ech = u_input;
     }
-
     cout << ech << endl;
 }
 
@@ -260,13 +263,6 @@ void mexport(string u_input) {
 int main(int argc, char** argv) {
 
     int err = 0;
-    char buff[FILENAME_MAX];
-    string p = buff;
-    if (const char *path = getenv("PATH")) {
-        string cur_p = path;
-        cur_p = p + ":" + cur_p;
-        setenv("PATH", cur_p.c_str(), 1);
-    }
 
     if(argc == 2)
     {
@@ -278,12 +274,11 @@ int main(int argc, char** argv) {
     else if(argc > 2)
     {
         cout << "Incorect parameters" << endl;
-
-        return -1;
+        err = 1;
     }
 
-    auto pth = current_path();
-    string current_dir = pth.string();
+    auto p = current_path();
+    string current_dir = p.string();
     string u_input;
     string comm;
 
