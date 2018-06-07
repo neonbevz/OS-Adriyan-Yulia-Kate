@@ -1,9 +1,15 @@
+//TODO: fix mexport
+//	check how std bash commands work (ls, cd...)
+//	make it look different from v's
+
+
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
 #include <sys/wait.h>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <iterator>
 #include <cstring>
 #include <cstdlib>
@@ -15,12 +21,16 @@
 #include <sys/wait.h>
 #include <vector>
 #include <wordexp.h>
+#include <map>
 
 
 extern char **environ;
 
 using namespace std;
 using namespace boost::filesystem;
+
+map<string, string> globals;
+
 
 void help() {
     cout << "You can run following commands: " << endl;
@@ -166,14 +176,116 @@ void fork_exec(string comm, string u_input, int &err) {
     }
 }
 
+void run_script(stringstream &stream, int &err)
+{
+    string line;
+    ifstream script(stream.str());
 
-int main() {
+    if(!script)
+    {
+        cout << "No such file" << endl;
+        err = 1;
+    }
 
-    auto p = current_path();
-    string current_dir = p.string();
+    while (getline(script, line)) {
+        istringstream str(line);
+        string str_line;
+
+        if (!(str >> str_line)) {
+            break;
+        }
+        if (str_line.c_str()[0] == '#') {
+            continue;
+        } else {
+            cout << str_line << endl;
+            fork_exec(str_line.c_str(), line, err);
+        }
+    } script.close();
+}
+
+void add_var(string u_input) {
+
+    string key = u_input.substr(0, u_input.find('='));
+    string value = u_input.substr(u_input.find('=') + 1);
+
+    if (globals.find(key) != globals.end()) {
+        globals[key] = value;
+    } else {
+        globals.insert(pair<string, string>(key, value));
+    }
+}
+
+string read_var(string key) {
+
+    if (globals.find(key) != globals.end()) {
+        return globals[key];
+    } else {
+        return "";
+    }
+}
+
+string mecho(string u_input) {
+
+    string ech;
+    if (u_input.find("$") != string::npos) {
+        string var = u_input.substr(u_input.find("$") + 1);
+        ech = read_var(var);
+    } else {
+        ech = u_input;
+    }
+
+    cout << ech << endl;
+}
+
+void mexport(string u_input) {
+
+    string key;
+    string value;
+
+    if (u_input.find("=") != string::npos) {
+        add_var(u_input);
+        key = u_input.substr(0, u_input.find("="));
+    } else {
+        key = u_input;
+    }
+
+    if (globals.find(key) != globals.end()) {
+        value = globals[key];
+        setenv(key.c_str(), value.c_str(), 1);
+    }
+}
+
+
+
+int main(int argc, char** argv) {
+
+    int err = 0;
+    char buff[FILENAME_MAX];
+    string p = buff;
+    if (const char *path = getenv("PATH")) {
+        string cur_p = path;
+        cur_p = p + ":" + cur_p;
+        setenv("PATH", cur_p.c_str(), 1);
+    }
+
+    if(argc == 2)
+    {
+        string file = argv[1];
+        stringstream stream{file};
+        run_script(stream, err);
+    }
+
+    else if(argc > 2)
+    {
+        cout << "Incorect parameters" << endl;
+
+        return -1;
+    }
+
+    auto pth = current_path();
+    string current_dir = pth.string();
     string u_input;
     string comm;
-    int err = 0;
 
     while (true) {
         cout << current_dir << " $ ";
@@ -183,6 +295,11 @@ int main() {
             continue;
         } else if (u_input == "-h"|| u_input == "--help") {
             help();
+            continue;
+        } else if(u_input[0] == '.') {
+            comm = u_input.substr(1);
+            stringstream read_file{comm};
+            run_script(read_file, err);
             continue;
         } else if (u_input[0] == '\"') {
             comm = u_input.substr(1, u_input.find_last_of('\"')-1);
@@ -208,10 +325,30 @@ int main() {
                 cout << err << endl;
                 break;
             }
+        } else if(comm == "mecho") {
+            string var = u_input.substr(u_input.find(' ') + 1);
+            mecho(var);
+        } else if(comm == "mexport") {
+            string var = u_input.substr(u_input.find(' ') + 1);
+            mexport(var);
         } else {
 
-            if (file_exists(comm)) {
+            if (u_input.find('=') != string::npos) {
+                add_var(u_input);
+                continue;
+            } if (file_exists(comm)) {
+                if(u_input.find('$') != string::npos) {
+                    string var = u_input.substr(u_input.find('$') + 1);
+                    string value = read_var(var);
+                    if(file_exists(value)) {
+                        u_input.replace(u_input.find('$'), value.size(), value);
+                        fork_exec(comm, u_input, err);
+                    } else {
+                        cout << "Incorect parameters" << endl;
+                    }
+                } else {
                     fork_exec(comm, u_input, err);
+                }
             } else {
                 fork_exec(comm, u_input, err);
             }
