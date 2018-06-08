@@ -1,0 +1,4 @@
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/cmake-build-debug/CMakeFiles/myclClient.dir
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/cmake-build-debug/CMakeFiles/myclServer.dir

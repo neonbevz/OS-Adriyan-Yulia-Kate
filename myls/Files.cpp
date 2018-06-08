@@ -60,12 +60,7 @@ vector<string> recursiveListDir(const string &root, const string &path) {
                     res.emplace_back(root + p);
                 } else {
                     res.emplace_back(p);
-                }//int main(int argc, char *argv[]) {
-//    vector<string> res = recursiveListDir(".");
-//    for (const auto &r : res) {
-//        cout << r << endl;
-//    }
-//}
+                }
                 if (isDir(p)) {
                     string newRoot;
                     if (path == ".") {

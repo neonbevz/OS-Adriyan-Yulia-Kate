@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/Server.cpp
+Server.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/Server.h
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/Server.h
+ctime
+-
+iostream
+-
+string
+-
+boost/asio.hpp
+-
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/serverMain.cpp
+ctime
+-
+iostream
+-
+string
+-
+boost/asio.hpp
+-
+bitset
+-
+Server.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/Server.h
+

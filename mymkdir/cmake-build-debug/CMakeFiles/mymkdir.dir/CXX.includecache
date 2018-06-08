@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymkdir/Helpers.cpp
+Helpers.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymkdir/Helpers.h
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymkdir/Helpers.h
+string
+-
+vector
+-
+algorithm
+-
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymkdir/main.cpp
+iostream
+-
+Helpers.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymkdir/Helpers.h
+boost/filesystem.hpp
+-
+

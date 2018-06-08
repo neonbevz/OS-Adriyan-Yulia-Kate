@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/myclServer.dir/serverMain.cpp.o CMakeFiles/myclServer.dir/Server.cpp.o  -o myclServer /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib/x86_64-linux-gnu/libboost_regex.so 

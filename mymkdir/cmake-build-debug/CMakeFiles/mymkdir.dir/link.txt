@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/mymkdir.dir/main.cpp.o CMakeFiles/mymkdir.dir/Helpers.cpp.o  -o mymkdir /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_system.so 

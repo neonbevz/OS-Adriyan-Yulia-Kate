@@ -1,0 +1,3 @@
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycp/cmake-build-debug/CMakeFiles/mycp.dir

@@ -14,7 +14,7 @@ int main1(int argc, char *argv[]) {
 
 
 int main(int argc, char *argv[]) {
-    vector<string> argsvector = toVector(argc, argv);
+    ,m
 
     // Directories / files
     vector<string> pathsvector = toDirs(argsvector);

@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mygrep/Helpers.cpp
+Helpers.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mygrep/Helpers.h
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mygrep/Helpers.h
+string
+-
+vector
+-
+algorithm
+-
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mygrep/main.cpp
+iostream
+-
+fstream
+-
+sstream
+-
+string
+-
+vector
+-
+regex
+-
+Helpers.h
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mygrep/Helpers.h
+

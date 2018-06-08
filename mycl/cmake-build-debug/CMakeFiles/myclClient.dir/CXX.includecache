@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mycl/clientMain.cpp
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+netdb.h
+-
+cstdlib
+-
+strings.h
+-
+boost/asio/write.hpp
+-
+iostream
+-
+bitset
+-
+

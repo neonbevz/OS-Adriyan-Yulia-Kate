@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/mycp.dir/main.cpp.o CMakeFiles/mycp.dir/Helpers.cpp.o CMakeFiles/mycp.dir/Files.cpp.o  -o mycp /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_system.so 

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/drbutthurt/Documents/OS-Adriyan-Yulia-Kate/mymv/main.cpp
+iostream
+-
+string
+-
+vector
+-
+dirent.h
+-
+ftw.h
+-
+algorithm
+-
+boost/filesystem.hpp
+-
+
