@@ -16,6 +16,7 @@
 #include <vector>
 #include <wordexp.h>
 #include <map>
+#include <fcntl.h>
 
 extern char **environ;
 
@@ -138,12 +139,46 @@ bool file_exists(string comm) {
     } return false;
 }
 
+void redirect(string &fcomm, string &file, string u_input, bool &stdout_to_file, bool &stderr_to_file,
+              bool &stdin_from_file, bool &in_background) {
+
+    string tfile;
+
+    if (u_input.find(" > ") != string::npos && u_input.find(" 2>&1") != string::npos) {
+        stdout_to_file = true;
+        stderr_to_file = true;
+        tfile = u_input.substr(u_input.find(" > ") + 3, u_input.find(" 2>&1") - u_input.find(" > ") - 3);
+        fcomm = u_input.substr(0, u_input.find(" > "));
+    } else if (u_input.find(" 2> ") != string::npos) {
+        stderr_to_file = true;
+        tfile = u_input.substr(u_input.find(" 2> ") + 4);
+        fcomm = u_input.substr(0, u_input.find(" 2> "));
+    } else if (u_input.find(" > ") != string::npos) {
+        stdout_to_file = true;
+        tfile = u_input.substr(u_input.find(" > ") + 3);
+        fcomm = u_input.substr(0, u_input.find(" > "));
+    } else if (u_input.find(" < ") != string::npos) {
+        stdin_from_file = true;
+        tfile = u_input.substr(u_input.find(" < ") + 3);
+        fcomm = u_input.substr(0, u_input.find(" < "));
+    }
+
+    file = tfile;
+
+    if (u_input.at(u_input.length() - 1) == '&') {
+        in_background = true;
+        file = tfile.substr(0, tfile.find("&") - 1);
+    }
+}
 
 void fork_exec(string comm, string u_input, int &err) {
 
-    wordexp_t inp;
-    wordexp(u_input.c_str(), &inp, 0);
-    char **in_parse = inp.we_wordv;
+    bool stdout_to_file = false;
+    bool stderr_to_file = false;
+    bool stdin_from_file = false;
+    bool in_background = false;
+    int fd;
+    string fcomm;
 
     pid_t parent = getpid();
     pid_t pid = fork();
@@ -156,23 +191,62 @@ void fork_exec(string comm, string u_input, int &err) {
         int status;
         waitpid(pid, &status, 0);
     } else {
-        if(file_exists(comm)){
+        string file = "";
+        redirect(fcomm, file, u_input, stdout_to_file, stderr_to_file, stdin_from_file, in_background);
+        if (in_background) {
+            close(0);
+            close(1);
+            close(2);
+        }
+
+        if (stdout_to_file && stderr_to_file) {
+            fd = open(file.c_str(), O_CREAT | O_WRONLY);
+            dup2(fd, 1);
+            dup2(fd, 2);
+        }
+        if (stdout_to_file) {
+            fd = open(file.c_str(), O_CREAT | O_WRONLY);
+            dup2(fd, 1);
+        }
+        if (stderr_to_file) {
+            fd = open(file.c_str(), O_CREAT | O_WRONLY);
+            dup2(fd, 2);
+        }
+        if (stdin_from_file) {
+            fd = open(file.c_str(), O_CREAT | O_RDONLY);
+            dup2(fd, 0);
+        }
+
+        if (fcomm == "") {
+            fcomm = u_input.substr(0, u_input.find("&"));
+        }
+        wordexp_t inp;
+        wordexp(fcomm.c_str(), &inp, 0);
+        char **in_parse = inp.we_wordv;
+
+        if (file_exists(comm)) {
             execve(comm.c_str(), in_parse, environ);
         } else {
+            if (fcomm == "") {
+                fcomm = u_input.substr(0, u_input.find("&"));
+            }
             vector<const char *> args;
-            istringstream iss(u_input);
+            istringstream iss(fcomm);
             string arg;
-            while(getline(iss, arg, ' ')) {
+            while (getline(iss, arg, ' ')) {
                 args.push_back(arg.c_str());
             }
             args.push_back(nullptr);
             execvp(comm.c_str(), const_cast<char *const *>(args.data()));
         }
+
         cout << u_input << ": command not found" << endl;
         err = 1;
         exit(EXIT_FAILURE);
     }
 }
+
+
 
 void run_script(stringstream &stream, int &err)
 {
@@ -259,7 +333,6 @@ void mexport(string u_input) {
 }
 
 
-
 int main(int argc, char** argv) {
 
     int err = 0;
@@ -283,6 +356,7 @@ int main(int argc, char** argv) {
     string comm;
 
     while (true) {
+
         cout << current_dir << " $ ";
         getline(cin, u_input);
 
